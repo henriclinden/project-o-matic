@@ -10,16 +10,73 @@
 </head>
 
 <body>
-    <div class="w3-display-middle">
-        <p>Hello World</p>
+    <div class="w3-container w3-orange">
+        <h2>Project-O-Matic</h2>
+        <p>Blinkfyrars projekthantering för produktavdelningen.</p>
     </div>
 
+    <div>
+        <p>
+            Filter:
+            <input type="text" id="qfilter">
+        </p>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Projekt</th>
+                    <th>Prio</th>
+                    <th>Status</th>
+                    <th>Ansvarig</th>
+                </tr>
+            </thead>
+            <tbody id="project_table"></tbody>
+        </table>
+    </div>
+    <p id="log"></p>
+
     <script>
-        const path = './';
         const fs = require('fs');
-        fs.watch(path, () => {
+        const path = require('path');
+
+        // File watcher during development. 
+        fs.watch('./', () => {
             if (location) location.reload();
         });
+
+        // Get project directories
+        const project_root = '../Projects/';
+        const getDirectories = (source) =>
+            fs.readdirSync(source, { withFileTypes: true })
+                .filter(dirent => dirent.isDirectory())
+                .map(dirent => dirent.name);
+
+        // Get a list of all project and their config
+        const getProjects = (source) =>
+            getDirectories(source).forEach(project => {
+                project_path = path.join(path, 'project.json');
+                
+            })
+        
+        // Load table
+        const loadTableData = (items) => {
+            const table = document.getElementById("project_table");
+            items.forEach(item => {
+                var rowNode = document.createElement("tr");
+                var cellNode = document.createElement("td");
+                cellNode.appendChild(document.createTextNode(item));
+                rowNode.appendChild(cellNode);
+                table.appendChild(rowNode);
+            });
+        }
+
+        // Debug
+        //document.getElementById("log").innerHTML = getDirectories(project_root)
+        
+        // Load data
+        loadTableData(getDirectories(project_root));
     </script>
 
 </html>
