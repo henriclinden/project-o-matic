@@ -1,0 +1,15 @@
+{
+  "name": "nw-app-test1",
+  "version": "1.0.0",
+  "description": "Minimal NW app",
+  "main": "index.html",
+  "scripts": {
+    "start": "nw .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Henric Lindén",
+  "license": "ISC",
+  "dependencies": {
+    "nw": "^0.73.0"
+  }
+}
